@@ -1,0 +1,17 @@
+CREATE DATABASE CompanyDB;
+-- TẠO CƠ SỞ DỮ LIỆU
+USE CompanyDB;
+-- TẠO BẢNG
+CREATE TABLE Employees(
+EmployeeID INT,
+FirstName VARCHAR(255),
+LastName VARCHAR(255),
+HireDate DATE,
+Salary DECIMAL(10,2)
+);
+-- THÊM TRƯỜNG
+ALTER TABLE Employees ADD COLUMN Department VARCHAR(255);
+
+-- SỬA TRƯỜNG Salary 
+ALTER TABLE Employees MODIFY COLUMN Salary FLOAT;
+ALTER TABLE Employees MODIFY COLUMN Salary DECIMAL(10,2);
