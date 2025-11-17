@@ -1,0 +1,17 @@
+CREATE DATABASE BT1;
+USE BT1;
+
+-- TẠO BẢNG Students
+
+CREATE TABLE Students(
+StudentID INT PRIMARY KEY AUTO_INCREMENT,
+Name VARCHAR(100),
+Age INT,
+Major VARCHAR(100)
+);
+
+INSERT INTO Students(Name,Age,Major)
+VALUES 
+('Alice',20,'Computer Science'),
+('Bob',22,'Mathematics'),
+('Charlie',21,'Physics');
