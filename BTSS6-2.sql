@@ -1,0 +1,71 @@
+-- TẠO BẢNG DỮ LIỆU
+
+CREATE DATABASE QLKHDH;
+USE QLKHDH;
+
+CREATE TABLE customers(
+ID INT PRIMARY KEY AUTO_INCREMENT,
+NAME VARCHAR(100) NOT NULL,
+EMAIL VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE categories(
+categorieID INT PRIMARY KEY AUTO_INCREMENT,
+NAME VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE products (
+productID INT PRIMARY KEY AUTO_INCREMENT,
+productNAME VARCHAR(100) NOT NULL,
+productsPRICE FLOAT,
+categorieID INT NOT NULL, 
+FOREIGN KEY(categorieID) REFERENCES categories(categorieID)
+);
+
+CREATE TABLE orders(
+orderID INT PRIMARY KEY AUTO_INCREMENT,
+ID INT NOT NULL,
+FOREIGN KEY(ID) REFERENCES customers(ID),
+orderDATE DATE
+);
+
+CREATE TABLE order_details(
+orderID INT NOT NULL, 
+FOREIGN KEY(orderID) REFERENCES orders(orderID),
+productID INT NOT NULL, 
+FOREIGN KEY(productID) REFERENCES products(productID),
+quantity INT NOT NULL,
+price FLOAT
+);
+
+INSERT INTO customers(NAME,EMAIL)
+VALUES ('A', 'A@GMAIL.COM'),
+('B', 'B@GMAIL.COM'),
+('C', 'C@GMAIL.COM');
+
+INSERT INTO categories(NAME)
+VALUES ('ÁO'),('QUẦN'),('MŨ');
+
+INSERT INTO products(productNAME,productsPRICE,categorieID)
+VALUES ('ÁO KAKI', 100, 1),
+('QUẦN JEAN',500,1),
+('ÁO 3 LỖ',50,2);
+
+INSERT INTO orders(ID,orderDATE) 
+VALUES (1,'2025-11-11'),
+(2,'2025-12-12');
+
+INSERT INTO order_details(orderID,productID,quantity,price)
+VALUES (1,1,1,100),
+(2,1,1,100);
+
+-- LIỆT KÊ NHỮNG KHÁCH HÀNG ĐÃ MUA ÍT NHẤT 1 SP
+
+SELECT DISTINCT c.ID,c.NAME,c.EMAIL FROM customers c JOIN orders o ON c.ID = o.ID;
+
+-- TÌM KHÁC HÀNG CHƯA TỪNG ĐẶT ĐƠN NÀO
+
+SELECT ID,NAME,EMAIL FROM customers WHERE ID NOT IN (SELECT ID FROM orders);
+
+-- TÍNH TOÁN DOANH THU MÀ MỖI KHÁCH HÀNG MANG LẠI
+
